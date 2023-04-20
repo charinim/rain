@@ -1,0 +1,51 @@
+class P {
+  constructor(y) {
+    this.y = y;
+    this.x = random(width);
+    this.s = random(4);
+    this.v = random(0.5);
+    this.r = random(255);
+    this.g = random(255);
+    this.b = 100 + random(155);
+  }
+
+  update() {
+    // this.x  = this.x > width? 0 : this.x+this.v;
+    this.x += this.v * 3 * noise(this.x)
+    this.y += this.v * 5 *  noise(this.y)
+
+    if (this.x > width) {
+      this.x = 0;
+    }
+    if (this.y > height) {
+      this.y = 0;
+    }
+    // this.s = random(2)
+    
+  }
+  d() {
+    // fill(random(255),random(255),random(255))
+    fill("#a6b0b1");
+    rect(this.x, this.y, this.s, this.s);
+  }
+}
+var particles = [];
+
+function setup() {
+  createCanvas(500, 500);
+  // particles.push(new P(height/2))
+  for (var i = 0; i < 50; i++) {
+    particles.push(new P(random(height)));
+  }
+}
+
+function draw() {
+  fill(255,255,255, 10);
+  noStroke();
+  rect(0, 0, width, height);
+
+  particles.forEach((e) => {
+    e.update();
+    e.d();
+  });
+}
